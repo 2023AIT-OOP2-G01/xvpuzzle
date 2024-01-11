@@ -1,0 +1,2 @@
+//パズルを動かすjavascriptのファイルです
+pass
