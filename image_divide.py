@@ -1,34 +1,32 @@
-#画像を16分割にする部分を作ります
-import cv2
+from PIL import Image
 import os
 
-def split_image(input_image_path, output_folder):
-    # 画像読み込み
-    image = cv2.imread(input_image_path)
+def divide_image(image_path):
+    # 画像を読み込む
+    image = Image.open(image_path)
 
-    # 画像のサイズを取得
-    height, width, _ = image.shape
+    # 画像を16分割
+    width, height = image.size
+    segment_width = width // 4
+    segment_height = height // 4
 
-    # 分割後のサイズを計算
-    split_height = height // 4
-    split_width = width // 4
-
-    # 出力フォルダが存在しない場合は作成
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
-    # 画像を縦4横4に分割
     for i in range(4):
         for j in range(4):
-            # 分割された画像を取得
-            split_img = image[i * split_height: (i + 1) * split_height, j * split_width: (j + 1) * split_width]
+            left = j * segment_width
+            upper = i * segment_height
+            right = (j + 1) * segment_width
+            lower = (i + 1) * segment_height
 
-            # 分割された画像を保存
-            output_path = os.path.join(output_folder, f'split_{i}_{j}.png')
-            cv2.imwrite(output_path, split_img)
+            # 画像を切り取り保存
+            segment = image.crop((left, upper, right, lower))
+            segment.save(f'segments/segment_{i}_{j}.png')
 
-if __name__ == "__main__":
-    input_image_path = "path/to/your/input/image.jpg"
-    output_folder = "path/to/your/output/folder"
+if __name__ == '__main__':
+    # アップロードされた画像のパスを指定
+    uploaded_image_path = 'uploads/uploaded_image.jpg'
+    
+    # 分割した画像を保存するディレクトリ
+    os.makedirs('segments', exist_ok=True)
 
-    split_image(input_image_path, output_folder)
+    divide_image(uploaded_image_path)
+    print('Image divided successfully')
