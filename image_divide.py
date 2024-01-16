@@ -29,4 +29,4 @@ if __name__ == '__main__':
     os.makedirs('segments', exist_ok=True)
 
     divide_image(uploaded_image_path)
-    print('Image divided successfully')
+    print('Image divided successfully') 
