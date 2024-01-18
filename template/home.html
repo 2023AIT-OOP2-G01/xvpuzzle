@@ -3,33 +3,35 @@
 
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>画像のアップロード</title>
-        <link rel="stylesheet" href="static/home.css">
-    </head>
 
-    <body>
-        <div id = "titleTextArea">
-            <p>画像のアップロード</p>
-        </div>
-        <div id="dropArea" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
-            <p>ファイルをここにドラッグ&ドロップ</p><br>
-            <p>または</p><br>
-            <input type="file" id="fileInput" onchange="handleFileSelect(event)">
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像のアップロード</title>
+    <link rel="stylesheet" href="../static/home.css">
+</head>
+
+<body>
+    <div id="titleTextArea">
+        <p>画像のアップロード</p>
+    </div>
+    <div id="dropArea" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+        <p>ファイルをここにドラッグ&ドロップ</p><br>
+        <p>または</p><br>
+        <input type="file" id="fileInput" onchange="handleFileSelect(event)">
+    </div>
 
 
-        <div id = "previewArea">
-            <img id="preview">
-        </div>
+    <div id="previewArea">
+        <img id="preview">
+    </div>
 
-        <form id = "startButton" action="未定" method="POST"> <!--要変更-->
-            <button type="submit" id="buttonText">パズルスタート</button>
-        </form>
-      
-        <script src="static/home.js"></script>
+    <form id="startButton" action="未定" method="POST"> <!--要変更-->
+        <button type="submit" id="buttonText">パズルスタート</button>
+    </form>
 
-    </body>
+    <script src="../static/home.js"></script>
+
+</body>
+
 </html>
