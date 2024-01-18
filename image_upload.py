@@ -1,6 +1,6 @@
 #画像をアップロードする部分を作ります
 #その後にimage_divied.pyにて16分割にします
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 import os, shutil
 
@@ -17,15 +17,9 @@ def index():
 # ファイルアップロード待受
 @app.route('/upload', methods=['POST'])
 def upload():
-    if 'file' not in request.files:
-        return render_template("home.html", message="ファイルを指定してください。")
 
     fs = request.files['file']
 
-    if '' == fs.filename:
-        return render_template("home.html", message="ファイルを指定してください。")
-
-    
     # ファイルの保存先パス
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(fs.filename))
     
