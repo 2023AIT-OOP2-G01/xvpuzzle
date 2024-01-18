@@ -1,4 +1,6 @@
 const initialState = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+const clearState = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15];
+
 
 const imagePaths = [
     'image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg',
@@ -71,8 +73,22 @@ const moveTile = (index) => {
     if (isMoveValid(index, emptyIndex)) {
         [currentState[index], currentState[emptyIndex]] = [currentState[emptyIndex], currentState[index]];
         renderPuzzle(currentState);
+        console.log(currentState);
 
-        if (isSolved(currentState)) {
+        if (currentState == clearState) {
+            console.log("Congratulations! Puzzle solved.");
+        }
+
+        let count_i = 0;
+
+        for (let i = 0; i < currentState.length; i++) {
+            if (currentState[i] == initialState[i]) {
+                count_i++;
+            }
+        }
+
+        console.log(count_i);
+        if (count_i == 16) {
             alert('Congratulations! Puzzle solved.');
         }
     }
