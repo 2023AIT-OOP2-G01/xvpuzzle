@@ -1,6 +1,5 @@
 
 const initialState = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-const fixedEmptyPosition = 15; // 空白マスの固定位置 (0-15 のインデックス)
 
 const imagePaths = [
     'image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg',
@@ -10,12 +9,19 @@ const imagePaths = [
 ];
 
 const shuffleArray = (array) => {
+    let solvable = false;
+
+
+
     do {
-        for (let i = array.length - 1; i > 0; i--) {
+
+
+        for (let i = array.length - 2; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
-    } while (!isSolvable(array));
+        solvable = isSolvable(array);
+    } while (!solvable);
 };
 
 const isSolvable = (state) => {
@@ -34,7 +40,9 @@ const isSolvable = (state) => {
     // If the grid width is even, the sum of the inversion count and the row number of the blank should be even
     const emptyIndex = state.indexOf(0);
     const emptyRow = Math.floor(emptyIndex / 4);
-    return (emptyRow % 2 === 0);
+    const gridWidth = Math.sqrt(state.length);
+    const sum = inversions + emptyRow + 1;
+    return sum % 2 === 0 && gridWidth % 2 === 1;
 };
 
 const isSolved = (state) => state.every((value, index) => value === index + 1);
@@ -84,13 +92,12 @@ const isMoveValid = (index, emptyIndex) => {
 };
 
 const currentState = [...initialState];
-currentState[fixedEmptyPosition] = 0; // 空白マスを固定位置に設定
-shuffleArray(currentState);
+
+do {
+    shuffleArray(currentState);
+} while (!isSolvable(currentState));
+
 renderPuzzle(currentState);
 
-if (isSolvable(currentState)) {
-    console.log("This puzzle is solvable!");
-} else {
-    console.log("This puzzle is not solvable!");
-}
+console.log("This puzzle is guaranteed to be solvable!");
 
