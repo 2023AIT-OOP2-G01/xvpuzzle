@@ -1,1 +1,30 @@
 /*puzzle.htmlの装飾を行うファイルです*/
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#puzzle {
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    gap: 5px;
+}
+
+.tile {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.tile img {
+    width: 100%;
+    height: 100%;
+}
