@@ -1,1 +1,65 @@
 /*home.htmlの装飾を行うファイルです*/
+
+#dropArea {
+    width: 500px;
+    height: 200px;
+    border: 4px dashed #ccc;
+    border-radius: 5px;  
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+}
+
+#titleTextArea {
+    width: 600px;
+    height: 70px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+}
+
+#titleTextArea p {
+    font-size: 50px;
+    margin: 10px auto;
+}
+
+#fileInput {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #87CEEB; 
+    color: #000000; 
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+#preview {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#previewArea {
+    width: 400px;
+    height: 200px;
+    /*　border: 4px dashed #ccc;  後で消す */
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin: 50px auto;
+}
+
+#startButton {
+    text-align: center;
+    padding-top: 1px;
+}
+
+#buttonText {
+    font-size: 20px;
+    width: 200px;
+    height: 50px;
+    background-color: #00FF00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
