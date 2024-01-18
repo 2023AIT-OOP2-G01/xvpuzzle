@@ -10,23 +10,31 @@ def divide_image(image_path):
     segment_width = width // 4
     segment_height = height // 4
 
-    for i in range(4):
-        for j in range(4):
-            left = j * segment_width
-            upper = i * segment_height
-            right = (j + 1) * segment_width
-            lower = (i + 1) * segment_height
+    # 分割した画像を保存するディレクトリ
+    output_dir = 'static/divided_images'
+    os.makedirs(output_dir, exist_ok=True)
 
-            # 画像を切り取り保存
-            segment = image.crop((left, upper, right, lower))
-            segment.save(f'segments/segment_{i}_{j}.png')
+    for i in range(16):
+        # グリッドの行と列を計算
+        row = i // 4
+        col = i % 4
+
+        # セグメントの座標を計算
+        left = col * segment_width
+        upper = row * segment_height
+        right = (col + 1) * segment_width
+        lower = (row + 1) * segment_height
+
+        # 画像を切り取り保存
+        segment = image.crop((left, upper, right, lower))
+        # 保存ファイル名は1から16までの番号を持つ
+        segment.save(f'{output_dir}/segment_{i+1}.png')
 
 if __name__ == '__main__':
     # アップロードされた画像のパスを指定
     uploaded_image_path = 'uploads/uploaded_image.jpg'
     
-    # 分割した画像を保存するディレクトリ
-    os.makedirs('segments', exist_ok=True)
-
+    # 画像を分割して保存
     divide_image(uploaded_image_path)
-    print('Image divided successfully') 
+    
+    print('Image divided successfully')
