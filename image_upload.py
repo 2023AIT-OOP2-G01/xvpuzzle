@@ -2,8 +2,7 @@
 #その後にimage_divied.pyにて16分割にします
 from flask import Flask, request, render_template, send_from_directory
 from werkzeug.utils import secure_filename
-import os
-import glob
+import os, shutil
 
 app = Flask(__name__)
 
@@ -26,41 +25,18 @@ def upload():
     if '' == fs.filename:
         return render_template("home.html", message="ファイルを指定してください。")
 
-    # 下記のような情報がFileStorageからは取れる
-    print('file_name={}'.format(fs.filename))
-    print('content_type={} content_length={}, mimetype={}, mimetype_params={}'.format(
-          fs.content_type,
-          fs.content_length,
-          fs.mimetype,
-          fs.mimetype_params))
-
+    
+    # ファイルの保存先パス
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(fs.filename))
+    
+    shutil.rmtree('upload_images')
+    os.mkdir('upload_images')
+    
     # ファイルを保存
-    fs.save('./upload_images/' + secure_filename(fs.filename))
+    fs.save(file_path)
+    print(f"File saved to: {file_path}")
 
     return render_template("home.html", message="ファイルのアップロードが完了しました。")
-
-# アップロードファイル一覧
-@app.route('/uploaded_list/')
-def uploaded_list():
-    files = glob.glob("./upload_images/*")
-    urls = []
-    for file in files:
-        urls.append({
-            "filename": os.path.basename(file),
-            "url": "/uploaded/" + os.path.basename(file)
-        })
-    return render_template("filelist.html", page_title="アップロードファイル", target_files=urls)
-
-
-
-@app.route('/uploaded/<path:filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-
-@app.route('/processed/gs/<path:filename>')
-def processed_gs_file(filename):
-    return send_from_directory(app.config['OUTPUT_FOLDER'] + '/gs', filename)
 
 
 if __name__ == '__main__':
