@@ -98,4 +98,5 @@ do {
 
 renderPuzzle(currentState);
 
+
 console.log("This puzzle is guaranteed to be solvable!");
