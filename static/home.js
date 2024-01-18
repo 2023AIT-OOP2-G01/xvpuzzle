@@ -57,4 +57,28 @@ function dragOverHandler(event) {
       }
     }
   }
+
+  function confirmImageFile() {
+    const preview = document.getElementById('preview');
+    
+  
+    // 画像が表示されているか確認
+    if (preview.src !== '') {
+      const form = document.getElementById('startButton');
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'previewData';
+      hiddenInput.value = preview.src;
+      form.appendChild(hiddenInput);
+  
+      // /puzzleに遷移
+      window.location.href = '/upload';
+      return true;
+    }
+  
+  
+    // どれも該当しない場合
+    alert('画像ファイルが選択されていません。');
+    return false; // フォーム送信をキャンセル
+}
   
