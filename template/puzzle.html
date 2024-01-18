@@ -19,9 +19,29 @@
 
 <body>
 
+    <style>
+        #timerArea {
+            display: grid;
+            text-align: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+
     <div id="puzzle"></div>
 
     <script src="../static/puzzle.js"></script>
+
+    <button onclick="startTimerButtonClicked()">Start Timer</button>
+
+    <div id="timerArea">
+        <p id="timerDisplay">00:00</p>
+        <button onclick="stopTimer()">Stop Timer</button>
+    </div>
+
+    <script src="../static/timer.js"></script>
 
 
 </body>
