@@ -12,21 +12,30 @@
 </head>
 
 <body>
-    <div id="titleTextArea">
-        <p>画像のアップロード</p>
-    </div>
-    <div id="dropArea" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
-        <p>ファイルをここにドラッグ&ドロップ</p><br>
-        <p>または</p><br>
-        <input type="file" id="fileInput" onchange="handleFileSelect(event)">
-    </div>
+    <!--return render_template("home.html", message=None)というように
+    image_upload.pyにあったので　messageの内容を表示するように変更を加えました-->
+    <h1>{{ message }}</h1>
+
+    <!--フォームタグの位置の変更を行いました
+    タグで囲まれる領域が変わりました
+    編集した者（橋本）には変化がないように思えますが　元々の作業者から見るともしかしたら変化する部分があると思います
+    -->
+    <form id="startButton" action="/upload" method="post" enctype="multipart/form-data">
+        <div id="titleTextArea">
+            <p>画像のアップロード</p>
+        </div>
+        <div id="dropArea" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+            <p>ファイルをここにドラッグ&ドロップ</p><br>
+            <p>または</p><br>
+            <input type="file" id="fileInput" name="file" onchange="handleFileSelect(event)">
+        </div>
 
 
-    <div id="previewArea">
-        <img id="preview">
-    </div>
+        <div id="previewArea">
+            <img id="preview">
+        </div>
 
-    <form id="startButton" action="/upload" method="POST">
+
         <button type="submit" id="buttonText">パズルスタート</button>
     </form>
 
