@@ -18,14 +18,19 @@ app.config['UPLOAD_FOLDER'] = './upload_images'
 
 @app.route('/')
 def index():
-    return render_template("home.html", message=None)
-
+    return render_template("home.html", message='')
+    #home.htmlに移行する
 
 # ファイルアップロード待受
 @app.route('/upload', methods=['POST'])
 def upload():
 
     fs = request.files['file']
+
+    #ファイルが選択されていない場合の処理
+    #ファイルが選択されていない場合はpuzzle.htmlに移行せず"ファイルが選択されていません"というメッセージを表示する
+    if fs is None or fs.filename == '':
+        return render_template("home.html", message="ファイルが選択されていません")
 
     # ファイルの保存先パス
     file_path = os.path.join(
@@ -38,7 +43,10 @@ def upload():
     fs.save(file_path)
     print(f"File saved to: {file_path}")
 
-    return render_template("home.html", message="ファイルのアップロードが完了しました。")
+    return render_template("puzzle.html", message="ファイルのアップロードが完了しました")
+    #ファイルが選択されていた際にpuzzle.htmlに移行する
+    #puzzle.htmlに移行するため、"ファイルのアップロードが完了しました。"というメッセージはみえない
+
 
 
 if __name__ == '__main__':
