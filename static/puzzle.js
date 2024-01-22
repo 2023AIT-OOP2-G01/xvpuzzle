@@ -12,11 +12,7 @@ const imagePaths = [
 const shuffleArray = (array) => {
     let solvable = false;
 
-
-
     do {
-
-
         for (let i = array.length - 2; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
@@ -62,7 +58,6 @@ const renderPuzzle = (state) => {
             tile.appendChild(img);
             tile.addEventListener('click', () => moveTile(index));
         }
-
         puzzleElement.appendChild(tile);
     });
 };
@@ -89,9 +84,115 @@ const moveTile = (index) => {
 
         console.log(count_i);
         if (count_i == 16) {
-            alert('Congratulations! Puzzle solved.');
+
+            timerstopetask();
+            displayCompletionMessage("clear");
         }
+
     }
+
+};
+
+timerstopetask = () => {
+
+    clearInterval(timer);
+}
+
+const displayCompletionMessage = (state) => {
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.background = 'white';
+    modal.style.padding = '20px';
+    modal.style.border = '2px solid black';
+    modal.style.zIndex = '1000';
+
+
+
+    console.log(state);
+
+    const message = document.createElement('p');
+    if (state == "clear") {
+        message.textContent = 'パズル完成';
+    } else if (state == "pause") {
+        message.textContent = '一時停止';
+    }
+    message.style.color = 'green';
+    message.style.fontSize = '20px';
+    message.style.marginBottom = '10px';
+
+    const timeDisplay = document.createElement('p');
+    timeDisplay.textContent = 'Time: ' + formatTime(seconds);
+    timeDisplay.style.fontSize = '16px';
+    timeDisplay.style.marginBottom = '10px';
+
+    const restartButton = document.createElement('button');
+    restartButton.textContent = 'リスタート';
+    restartButton.style.padding = '5px';
+    restartButton.addEventListener('click', () => {
+        document.body.removeChild(modal);
+        restartGame();
+        timerDisplay = document.getElementById('timerArea');
+        timerDisplay.textContent = formatTime(seconds);
+    });
+
+    const closeButton = document.createElement('span');
+    closeButton.innerHTML = '&times;'; // HTMLエンティティで「×」を表現
+    closeButton.classList.add('close-button');
+    closeButton.addEventListener('click', () => {
+        restartTimer();
+        document.body.removeChild(modal);
+    });
+
+    // ホバー時のスタイルを追加
+    closeButton.addEventListener('mouseover', () => {
+        closeButton.style.border = '1px solid #555';
+        //closeButton.style.bordersoli = '30px';
+        closeButton.style.padding = '2px';
+        closeButton.style.color = 'red';
+    });
+
+    // ホバーが外れた時のスタイルを追加
+    closeButton.addEventListener('mouseout', () => {
+        closeButton.style.border = 'black';
+        closeButton.style.padding = '0';
+        closeButton.style.color = '#333';
+    });
+
+    modal.appendChild(closeButton);
+
+    const homeButton = document.createElement('button');
+    homeButton.textContent = 'アップロード画面に戻る';
+    homeButton.style.padding = '5px';
+    homeButton.addEventListener('click', () => {
+        // ホームへのリダイレクト処理
+
+        window.location.href = 'home.html';
+    });
+
+    modal.appendChild(message);
+    modal.appendChild(timeDisplay);
+    modal.appendChild(restartButton);
+    modal.appendChild(homeButton);
+    modal.appendChild(closeButton);
+
+    document.body.appendChild(modal);
+};
+
+const restartGame = () => {
+    // パズルの初期化など、ゲームをリスタートするための処理を追加
+    currentState.length = 0;
+    currentState.push(...initialState);
+    console.log(currentState);
+
+    do {
+        shuffleArray(currentState);
+    } while (!isSolvable(currentState));
+    renderPuzzle(currentState);
+    startTimer();
+
 };
 
 const isMoveValid = (index, emptyIndex) => {
@@ -106,6 +207,15 @@ const isMoveValid = (index, emptyIndex) => {
     );
 };
 
+function pauseTimer() {
+    // タイマーを一時停止する処理を追加
+    // 例えば、stopTimer() 関数を呼び出すなど
+    stopTimer();
+
+    timerstopetask();
+    displayCompletionMessage("pause");
+}
+
 const currentState = [...initialState];
 
 do {
@@ -116,3 +226,8 @@ renderPuzzle(currentState);
 
 
 console.log("This puzzle is guaranteed to be solvable!");
+
+document.addEventListener('DOMContentLoaded', function () {
+    const pauseButton = document.getElementById('pauseButton');
+    pauseButton.addEventListener('click', pauseTimer);
+});

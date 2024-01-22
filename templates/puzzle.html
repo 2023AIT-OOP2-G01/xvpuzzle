@@ -15,34 +15,19 @@
     <title>15 Puzzle</title>
     <link rel="stylesheet" href="../static/puzzle.css">
 
+
 </head>
 
 <body>
 
-    <style>
-        #timerArea {
-            display: grid;
-            text-align: center;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    </style>
-
-    <div id="puzzle"></div>
-
-    <script src="../static/puzzle.js"></script>
-
-    <button onclick="startTimerButtonClicked()">Start Timer</button>
-
-    <div id="timerArea">
-        <p id="timerDisplay">00:00</p>
-        <button onclick="stopTimer()">Stop Timer</button>
+    <div id="puzzle">
     </div>
 
-    <script src="../static/timer.js"></script>
+    <div id="timerArea">00:00</div>
+    <button id="pauseButton">Pause</button>
 
+    <script type="text/javascript" src="../static/puzzle.js"></script>
+    <script src="../static/timer.js"></script>
 
 </body>
 

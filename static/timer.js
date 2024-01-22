@@ -10,12 +10,18 @@ function startTimerButtonClicked() {
 }
 
 function startTimer() {
+    seconds = 0;
     timer = setInterval(updateTimer, 1000);
 }
 
+function restartTimer() {
+    timer = setInterval(updateTimer, 1000);
+}
+
+
 function updateTimer() {
     seconds++;
-    const timerDisplay = document.getElementById('timerDisplay');
+    const timerDisplay = document.getElementById('timerArea');
     timerDisplay.textContent = formatTime(seconds);
 }
 
@@ -32,3 +38,5 @@ function padNumber(number) {
 function stopTimer() {
     clearInterval(timer);
 }
+
+startTimer();
