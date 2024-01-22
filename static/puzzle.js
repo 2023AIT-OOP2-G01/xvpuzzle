@@ -139,11 +139,7 @@ const displayCompletionMessage = (state) => {
         timerDisplay.textContent = formatTime(seconds);
     });
 
-    const img = document.createElement('img');
-    const imageName = 'original.jpg'; // 表示する画像のファイル名を指定
-    img.src = `../static/divided_images/${imageName}`; // 画像のパスを upload_images フォルダ内に設定
-    img.style.maxWidth = '200px'; // 最大幅を200pxに設定
-    img.style.maxHeight = '200px'; // 最大高さを200pxに設定
+
 
     const closeButton = document.createElement('span');
     closeButton.innerHTML = '&times;'; // HTMLエンティティで「×」を表現
@@ -233,6 +229,12 @@ renderPuzzle(currentState);
 
 // コンソールにメッセージを表示
 console.log("This puzzle is guaranteed to be solvable!");
+
+const img = document.createElement('img');
+const imageName = 'original.jpg'; // 表示する画像のファイル名を指定
+img.src = `../static/divided_images/${imageName}`; // 画像のパスを upload_images フォルダ内に設定
+img.style.maxWidth = '200px'; // 最大幅を200pxに設定
+img.style.maxHeight = '200px'; // 最大高さを200pxに設定
 
 // ページの読み込み完了時の処理
 document.addEventListener('DOMContentLoaded', function () {
