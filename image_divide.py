@@ -32,13 +32,3 @@ def divide_image(image_path):
         segment = image.crop((left, upper, right, lower))
         # 保存ファイル名は1から16までの番号を持つ
         segment.save(f'{output_dir}/segment_{i+1}.jpg')
-
-
-if __name__ == '__main__':
-    # アップロードされた画像のパスを指定
-    uploaded_image_path = 'uploads/uploaded_image.jpg'
-
-    # 画像を分割して保存
-    divide_image(uploaded_image_path)
-
-    print('Image divided successfully')
