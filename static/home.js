@@ -1,84 +1,67 @@
 /*home.htmlのstartボタンのファイルです*/
 
-function dragOverHandler(event) {
-    // ドロップされたアイテムのデフォルトの挙動をキャンセル
-    event.preventDefault(); 
+// 水野　不要になった関数の削除、新たな関数の追加、関数名の変更を行いました。
 
-    // ドラッグエリアの上にアイテムがあるかどうかを判定
-    const isFileOver = event.dataTransfer.types.includes('Files');
-
-    // ドラッグエリア上にアイテムがあれば、ドラッグエリアの境界線を実線に変更
-    dropArea.style.border = isFileOver ? '2px solid #aaa' : '4px dashed #ccc';
-  }
-  
-  function dropHandler(event) { // ドラッグエリア上でアイテムがドロップされた際の処理を行う関数
-    // ドロップされたアイテムのデフォルトの挙動をキャンセル
-    event.preventDefault();
-
-    // ドロップ完了後、一定時間後に境界線のスタイルを元に戻す
-    // 10ミリ秒(0.01秒)後に戻す
-    setTimeout(function () {
-        dropArea.style.border = '4px dashed #ccc';
-    }, 10);
-  
-    // ドロップされたアイテムの情報を取得
-    const files = event.dataTransfer.files;
-
-    // ドロップされたファイルの処理を行うため、handleFiles関数の呼び出し
-    handleFiles(files);
-  }
-  
-  function handleFileSelect(event) { // ファイル選択ボタンでファイルを選択した際の処理を行う関数
-    // 選択されたファイルの情報を取得
-    const files = event.target.files;
-
-    // 選択されたファイルの処理を行うため、handleFiles関数の呼び出し
-    handleFiles(files);
-  }
-  
-  function handleFiles(files) { // 選択されたファイルの処理を行う関数
-    // プレビューを表示するための要素を取得
-    const preview = document.getElementById('preview');
-
-    for (const file of files) {
-      if (file.type.startsWith('image/')) { // 選択されたファイルが画像ファイルかどうかを判定
-        // ファイルを読み込むためのオブジェクトを作成
-        const reader = new FileReader();
-  
-        // ファイルの読み込みが完了した時に呼ばれるコールバック関数を設定し、読み込んだデータをプレビューの'src'属性に設定
-        reader.onload = function (e) {
-          preview.src = e.target.result;
-        };
-  
-        // ファイルをデータURLとして読み込み
-        reader.readAsDataURL(file)
-      } else { // 選択されたファイルが画像ファイルではない場合、アラートを表示
-        alert('画像ファイルを選択してください。');
-      }
-    }
-  }
-
-  function confirmImageFile() {
-    const preview = document.getElementById('preview');
-    
-  
-    // 画像が表示されているか確認
-    if (preview.src !== '') {
-      const form = document.getElementById('startButton');
-      const hiddenInput = document.createElement('input');
-      hiddenInput.type = 'hidden';
-      hiddenInput.name = 'previewData';
-      hiddenInput.value = preview.src;
-      form.appendChild(hiddenInput);
-  
-      // /puzzleに遷移
-      window.location.href = '/upload';
-      return true;
-    }
-  
-  
-    // どれも該当しない場合
-    alert('画像ファイルが選択されていません。');
-    return false; // フォーム送信をキャンセル
+// ドラッグ＆ドロップの際に枠線の見た目を変更
+function handleDragEnter() {
+  document.getElementById('dragDropArea').style.border = '6px dashed #87CEEB';
 }
-  
+
+// ドラッグ＆ドロップ終了時に、枠線を元に戻す
+function handleDragLeave() {
+  document.getElementById('dragDropArea').style.border = '4px dashed #ccc';
+}
+
+// ファイルがドラッグ＆ドロップで選択されたときの処理
+document.querySelector('input').addEventListener('change', (event) => {
+
+  // ドロップされたアイテムのデフォルトの挙動をキャンセル
+  event.preventDefault(); 
+
+  // 選択されたファイルの情報を取得
+  const files = event.target.files;
+
+  // 選択されたファイルのプレビュー表示を行うため、showPreview関数の呼び出し
+  showPreview(files);
+});
+
+// ファイル選択ボタンでファイルを選択した際の処理を行う関数
+function handleFileSelect(event) { 
+  // 選択されたファイルの情報を取得
+  const files = event.target.files;
+
+  // 選択されたファイルのプレビュー表示を行うため、showPreview関数の呼び出し
+  showPreview(files);
+}
+
+// 選択されたファイルのプレビュー表示を行う関数
+function showPreview(files) { 
+  // プレビューを表示するための要素を取得
+  const preview = document.getElementById('preview');
+
+  for (const file of files) {
+    if (file.type.startsWith('image/')) { // 選択されたファイルが画像ファイルかどうかを判定
+      // ファイルを読み込むためのオブジェクトを作成
+      const reader = new FileReader();
+
+      // ファイルの読み込みが完了した時に呼ばれるコールバック関数を設定し、読み込んだデータをプレビューの'src'属性に設定
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+      };
+
+      // ファイルをデータURLとして読み込み
+      reader.readAsDataURL(file)
+    } else { // 選択されたファイルが画像ファイルではない場合、アラートを表示
+      alert('画像ファイルを選択してください。');
+    }
+  }
+}
+
+// ファイルが選択されていない場合にエラーメッセージを表示する関数
+function confirmImageFile() {
+  const preview = document.getElementById('preview');
+
+  if(preview.src == '') {
+      alert('ファイルが選択されていません。');
+  }
+}

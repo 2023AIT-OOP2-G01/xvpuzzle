@@ -28,9 +28,10 @@ def upload():
     fs = request.files['file']
 
     #ファイルが選択されていない場合の処理
-    #ファイルが選択されていない場合はpuzzle.htmlに移行せず"ファイルが選択されていません"というメッセージを表示する
+    #ファイルが選択されていない場合はpuzzle.htmlに移行しない
+    # 水野　home.js側でファイルが選択されていない場合のメッセージ表示処理を行うため、message=""を削除しました。
     if fs is None or fs.filename == '':
-        return render_template("home.html", message="ファイルが選択されていません")
+        return render_template("home.html")
 
     # ファイルの保存先パス
     file_path = os.path.join(
