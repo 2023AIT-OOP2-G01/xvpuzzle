@@ -8,6 +8,7 @@ from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 import os
 import shutil
+from image_divide import divide_image  # 画像を分割する関数と連携を取れるようにしました
 
 app = Flask(__name__)
 
@@ -19,16 +20,18 @@ app.config['UPLOAD_FOLDER'] = './upload_images'
 @app.route('/')
 def index():
     return render_template("home.html", message='')
-    #home.htmlに移行する
+    # home.htmlに移行する
 
 # ファイルアップロード待受
+
+
 @app.route('/upload', methods=['POST'])
 def upload():
 
     fs = request.files['file']
 
-    #ファイルが選択されていない場合の処理
-    #ファイルが選択されていない場合はpuzzle.htmlに移行しない
+    # ファイルが選択されていない場合の処理
+    # ファイルが選択されていない場合はpuzzle.htmlに移行しない
     # 水野　home.js側でファイルが選択されていない場合のメッセージ表示処理を行うため、message=""を削除しました。
     if fs is None or fs.filename == '':
         return render_template("home.html")
@@ -44,10 +47,11 @@ def upload():
     fs.save(file_path)
     print(f"File saved to: {file_path}")
 
-    return render_template("puzzle.html", message="ファイルのアップロードが完了しました")
-    #ファイルが選択されていた際にpuzzle.htmlに移行する
-    #puzzle.htmlに移行するため、"ファイルのアップロードが完了しました。"というメッセージはみえない
+    divide_image(file_path)
 
+    return render_template("puzzle.html", message="ファイルのアップロードが完了しました", filename=fs.filename)
+    # ファイルが選択されていた際にpuzzle.htmlに移行する
+    # puzzle.htmlに移行するため、"ファイルのアップロードが完了しました。"というメッセージはみえない
 
 
 if __name__ == '__main__':

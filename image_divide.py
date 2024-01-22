@@ -1,6 +1,7 @@
 from PIL import Image
 import os
 
+
 def divide_image(image_path):
     # 画像を読み込む
     image = Image.open(image_path)
@@ -13,6 +14,8 @@ def divide_image(image_path):
     # 分割した画像を保存するディレクトリ
     output_dir = 'static/divided_images'
     os.makedirs(output_dir, exist_ok=True)
+
+    image.save(f'{output_dir}/original.jpg')  # オリジナル画像も保存するようにしました
 
     for i in range(16):
         # グリッドの行と列を計算
@@ -28,13 +31,14 @@ def divide_image(image_path):
         # 画像を切り取り保存
         segment = image.crop((left, upper, right, lower))
         # 保存ファイル名は1から16までの番号を持つ
-        segment.save(f'{output_dir}/segment_{i+1}.png')
+        segment.save(f'{output_dir}/segment_{i+1}.jpg')
+
 
 if __name__ == '__main__':
     # アップロードされた画像のパスを指定
     uploaded_image_path = 'uploads/uploaded_image.jpg'
-    
+
     # 画像を分割して保存
     divide_image(uploaded_image_path)
-    
+
     print('Image divided successfully')
