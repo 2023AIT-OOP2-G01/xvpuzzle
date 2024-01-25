@@ -2,6 +2,9 @@
 
 // 水野　不要になった関数の削除、新たな関数の追加、関数名の変更を行いました。
 
+// アラートが既に表示されたかどうかを示すフラグ
+let alertShown = false;
+
 // ドラッグ＆ドロップの際に枠線の見た目を変更
 function handleDragEnter() {
   document.getElementById('dragDropArea').style.border = '6px dashed #87CEEB';
@@ -16,7 +19,7 @@ function handleDragLeave() {
 document.querySelector('input').addEventListener('change', (event) => {
 
   // ドロップされたアイテムのデフォルトの挙動をキャンセル
-  event.preventDefault(); 
+  event.preventDefault();
 
   // 選択されたファイルの情報を取得
   const files = event.target.files;
@@ -26,7 +29,7 @@ document.querySelector('input').addEventListener('change', (event) => {
 });
 
 // ファイル選択ボタンでファイルを選択した際の処理を行う関数
-function handleFileSelect(event) { 
+function handleFileSelect(event) {
   // 選択されたファイルの情報を取得
   const files = event.target.files;
 
@@ -35,7 +38,7 @@ function handleFileSelect(event) {
 }
 
 // 選択されたファイルのプレビュー表示を行う関数
-function showPreview(files) { 
+function showPreview(files) {
   // プレビューを表示するための要素を取得
   const preview = document.getElementById('preview');
 
@@ -50,9 +53,16 @@ function showPreview(files) {
       };
 
       // ファイルをデータURLとして読み込み
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(file);
     } else { // 選択されたファイルが画像ファイルではない場合、アラートを表示
-      alert('画像ファイルを選択してください。');
+      if (!alertShown) {
+        alert('画像ファイルを選択してください。');
+        alertShown = true;
+        //alertShownを1秒後にfalseにする
+        setTimeout(function () {
+          alertShown = false;
+        }, 500);
+      }
     }
   }
 }
@@ -61,7 +71,8 @@ function showPreview(files) {
 function confirmImageFile() {
   const preview = document.getElementById('preview');
 
-  if(preview.src == '') {
-      alert('ファイルが選択されていません。');
+  if (preview.src == '' && !alertShown) {
+    alert('ファイルが選択されていません。');
+    alertShown = true;
   }
 }
