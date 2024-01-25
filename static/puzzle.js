@@ -125,9 +125,7 @@ const displayCompletionMessage = (state) => {
         message.textContent = '一時停止';
     }
 
-    if (game_clear == true) {
-        message.textContent = 'メニュー';
-    }
+
 
     message.style.color = 'green';
     message.style.fontSize = '20px';
