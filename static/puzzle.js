@@ -2,6 +2,8 @@
 const initialState = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
 const clearState = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15];
 
+let game_clear = false;
+
 // パズルの各ピースの画像ファイルのパス
 const imagePaths = [
     'segment_1.jpg', 'segment_2.jpg', 'segment_3.jpg', 'segment_4.jpg',
@@ -92,6 +94,7 @@ const moveTile = (index) => {
         // パズルが解かれた場合の処理
         if (count_i == 16) {
             timerstopetask();
+            game_clear = true;
             displayCompletionMessage("clear");
         }
     }
@@ -117,9 +120,15 @@ const displayCompletionMessage = (state) => {
     const message = document.createElement('p');
     if (state == "clear") {
         message.textContent = 'パズル完成';
+
     } else if (state == "pause") {
         message.textContent = '一時停止';
     }
+
+    if (game_clear == true) {
+        message.textContent = 'メニュー';
+    }
+
     message.style.color = 'green';
     message.style.fontSize = '20px';
     message.style.marginBottom = '10px';
@@ -135,6 +144,7 @@ const displayCompletionMessage = (state) => {
     restartButton.addEventListener('click', () => {
         document.body.removeChild(modal);
         restartGame();
+        game_clear = false;
         timerDisplay = document.getElementById('timerArea');
         timerDisplay.textContent = formatTime(seconds);
     });
@@ -145,8 +155,12 @@ const displayCompletionMessage = (state) => {
     closeButton.innerHTML = '&times;'; // HTMLエンティティで「×」を表現
     closeButton.classList.add('close-button');
     closeButton.addEventListener('click', () => {
-        restartTimer();
-        document.body.removeChild(modal);
+        if (game_clear == true) {
+            document.body.removeChild(modal);
+        } else if (state == "pause") {
+            restartTimer();
+            document.body.removeChild(modal);
+        }
     });
 
     // ホバー時のスタイルを追加
