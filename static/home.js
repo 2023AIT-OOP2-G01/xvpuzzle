@@ -10,13 +10,16 @@ function handleDragEnter() {
   document.getElementById('dragDropArea').style.border = '6px dashed #87CEEB';
 }
 
-// ドラッグ＆ドロップ終了時に、枠線を元に戻す
+// ドラッグ＆ドロップエリア外にファイルが移動したら、枠線を元に戻す
 function handleDragLeave() {
   document.getElementById('dragDropArea').style.border = '4px dashed #ccc';
 }
 
 // ファイルがドラッグ＆ドロップで選択されたときの処理
 document.querySelector('input').addEventListener('change', (event) => {
+
+  // アイテムのドロップ後、枠線を元に戻す
+  document.getElementById('dragDropArea').style.border = '4px dashed #ccc';
 
   // ドロップされたアイテムのデフォルトの挙動をキャンセル
   event.preventDefault();
