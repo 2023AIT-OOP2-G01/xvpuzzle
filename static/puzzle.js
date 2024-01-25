@@ -107,6 +107,18 @@ timerstopetask = () => {
 
 // ゲームクリア時のメッセージを表示する関数
 const displayCompletionMessage = (state) => {
+
+    // オーバーレイ
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.background = 'rgba(0, 0, 0, 0.5)'; // オーバーレイの背景色と透明度
+    overlay.style.zIndex = '1000'; // モーダルよりも低い z-index
+
+    // モーダル
     const modal = document.createElement('div');
     modal.style.position = 'fixed';
     modal.style.top = '50%';
@@ -115,7 +127,11 @@ const displayCompletionMessage = (state) => {
     modal.style.background = 'white';
     modal.style.padding = '20px';
     modal.style.border = '2px solid black';
-    modal.style.zIndex = '1000';
+    modal.style.zIndex = '2000'; // オーバーレイよりも高い z-index
+
+    // モーダルをオーバーレイ内に追加
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
 
     const message = document.createElement('p');
     if (state == "clear") {
@@ -143,6 +159,7 @@ const displayCompletionMessage = (state) => {
     restartButton.style.padding = '5px';
     restartButton.addEventListener('click', () => {
         document.body.removeChild(modal);
+        document.body.removeChild(overlay);
         restartGame();
         game_clear = false;
         timerDisplay = document.getElementById('timerArea');
@@ -155,6 +172,7 @@ const displayCompletionMessage = (state) => {
     closeButton.innerHTML = '&times;'; // HTMLエンティティで「×」を表現
     closeButton.classList.add('close-button');
     closeButton.addEventListener('click', () => {
+        document.body.removeChild(overlay);
         if (game_clear == true) {
             document.body.removeChild(modal);
         } else if (state == "pause") {
