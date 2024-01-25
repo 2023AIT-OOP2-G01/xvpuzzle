@@ -77,5 +77,8 @@ function confirmImageFile() {
   if (preview.src == '' && !alertShown) {
     alert('ファイルが選択されていません。');
     alertShown = true;
+    setTimeout(function () {
+      alertShown = false;
+    }, 500);
   }
 }

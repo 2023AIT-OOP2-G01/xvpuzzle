@@ -5,7 +5,7 @@ import os
 def divide_image(image_path):
     # 画像を読み込む
     image = Image.open(image_path)
-    image = image.convert("RGB")#pngファイルを実質jpegにする
+    image = image.convert("RGB")  # pngファイルを実質jpegにする
 
     # 画像を16分割
     width, height = image.size

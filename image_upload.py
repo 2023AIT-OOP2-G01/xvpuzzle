@@ -9,6 +9,15 @@ from werkzeug.utils import secure_filename
 import os
 import shutil
 from image_divide import divide_image  # 画像を分割する関数と連携を取れるようにしました
+from werkzeug.utils import secure_filename
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 app = Flask(__name__)
 
@@ -31,27 +40,25 @@ def upload():
     fs = request.files['file']
 
     # ファイルが選択されていない場合の処理
-    # ファイルが選択されていない場合はpuzzle.htmlに移行しない
-    # 水野　home.js側でファイルが選択されていない場合のメッセージ表示処理を行うため、message=""を削除しました。
     if fs is None or fs.filename == '':
         return render_template("home.html")
 
-    # ファイルの保存先パス
+    # ファイルの拡張子が許可されているかどうかをチェック
+    if not allowed_file(fs.filename):
+        return render_template("home.html", error="許可されていないファイル形式です。PNGまたはJPEG形式のファイルを選択してください。")
+
     file_path = os.path.join(
         app.config['UPLOAD_FOLDER'], secure_filename(fs.filename))
 
     shutil.rmtree('upload_images')
     os.mkdir('upload_images')
 
-    # ファイルを保存
     fs.save(file_path)
     print(f"File saved to: {file_path}")
 
     divide_image(file_path)
 
     return render_template("puzzle.html", message="ファイルのアップロードが完了しました", filename=fs.filename)
-    # ファイルが選択されていた際にpuzzle.htmlに移行する
-    # puzzle.htmlに移行するため、"ファイルのアップロードが完了しました。"というメッセージはみえない
 
 
 if __name__ == '__main__':
