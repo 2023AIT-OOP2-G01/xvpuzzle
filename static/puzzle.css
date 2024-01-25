@@ -60,7 +60,36 @@ body {
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
+    border: 2px solid #000;
+    border-radius: 0;
+    background: #fff;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
+#pauseButton:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+  
+    width: 5px;
+    height: 100%;
+  
+    content: '';
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  
+    background: #ff0000;
+  }
+  
+  #pauseButton:hover {
+    color: #fff;
+    background: #ff0000;
+  }
+  
+  #pauseButton:hover:before {
+    background: #fff;
+  }
+  
 
 .close-button {
     position: absolute;
