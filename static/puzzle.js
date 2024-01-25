@@ -126,7 +126,7 @@ const displayCompletionMessage = (state) => {
     }
 
     if (game_clear == true) {
-        message.textContent = 'メニュー';
+        message.textContent = 'パズル完成';
     }
 
     message.style.color = 'green';
