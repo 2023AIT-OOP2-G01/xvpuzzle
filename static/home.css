@@ -52,15 +52,45 @@
 }
 
 /*「パズルスタート」ボタンについての装飾*/
+
 #buttonText {
-    font-size: 20px;
-    width: 200px;
-    height: 50px;
-    background-color: #00FF00;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    width: 200px; /* ボタンの横幅を変更 */
+    height: 60px; /* ボタンの縦幅を変更 */
+    border: 2px solid #000;
+    border-radius: 0;
+    background: #fff;
+  
+    -webkit-transform-style: preserve-3d;
+  
+    transform-style: preserve-3d;
+
+    font-size: 18px;
 }
+  
+#buttonText:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+  
+    width: 5px;
+    height: 100%;
+  
+    content: '';
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  
+    background: #7bf500;
+}
+  
+#buttonText:hover {
+    color: #fff;
+    background: #7bf500;
+}
+  
+#buttonText:hover:before {
+    background: #fff;
+}
+  
 
 /*「ここにファイルをドラッグ＆ドロップ」というテキストの装飾*/
 #dragDropAreaText1 {
