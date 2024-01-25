@@ -8,6 +8,8 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    background: url("/static/home_background.jpg");
+    background-size: cover;
 }
 
 #puzzle-container {
