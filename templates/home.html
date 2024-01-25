@@ -22,14 +22,15 @@
     -->
     <!--水野
     ファイル未選択時にメッセージを表示するため、onsubmitに関数を設定しました。-->
-    <form id="startButton" action="/upload" method="post" enctype="multipart/form-data"  onsubmit="confirmImageFile()">
+    <form id="startButton" action="/upload" method="post" enctype="multipart/form-data" onsubmit="confirmImageFile()">
         <div id="titleTextArea">
             <p>画像のアップロード</p>
         </div>
         <!--水野
         ドラッグ＆ドロップ用のエリアを廃止し、inputだけでドラッグ＆ドロップとボタンの２タイプでのファイル選択ができるように変更しました。-->
         <div id="fileInputArea">
-            <input type="file" id="dragDropArea" name="file" onchange="handleFileSelect(event)" ondragenter="handleDragEnter()" ondragleave="handleDragLeave()">
+            <input type="file" id="dragDropArea" name="file" onchange="handleFileSelect(event)"
+                ondragenter="handleDragEnter()" ondragleave="handleDragLeave()">
             <p id="dragDropAreaText1">ファイルをここにドラッグ＆ドロップ</p>
             <p id="dragDropAreaText2">または</p>
         </div>
