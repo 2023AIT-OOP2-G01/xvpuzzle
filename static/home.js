@@ -5,6 +5,14 @@
 // アラートが既に表示されたかどうかを示すフラグ
 let alertShown = false;
 
+// Chromeのデフォルトの戻る操作がされたとき、選択されているファイルのプレビュー表示を行う
+window.onload = function() {
+  var fileInput = document.getElementById('dragDropArea');
+  var selectedFile = fileInput.files;
+  // 選択されたファイルのプレビュー表示を行うため、showPreview関数の呼び出し
+  showPreview(selectedFile);
+}
+
 // ドラッグ＆ドロップの際に枠線の見た目を変更
 function handleDragEnter() {
   document.getElementById('dragDropArea').style.border = '6px dashed #87CEEB';
