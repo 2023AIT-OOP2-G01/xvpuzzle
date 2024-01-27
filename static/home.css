@@ -7,7 +7,7 @@
     position: relative;
     padding: 193px 125px 21.7px 162.8px;
     border: 4px dashed #ccc;
-    border-radius: 5px;  
+    border-radius: 5px;
     text-align: center;
     margin: 10px auto 0px auto;
     z-index: 1;
@@ -54,48 +54,63 @@
 /*「パズルスタート」ボタンについての装飾*/
 
 #buttonText {
-    width: 200px; /* ボタンの横幅を変更 */
-    height: 60px; /* ボタンの縦幅を変更 */
+    width: 200px;
+    /* ボタンの横幅を変更 */
+    height: 60px;
+    /* ボタンの縦幅を変更 */
     border: 2px solid #000;
     border-radius: 0;
     background: #fff;
-  
+
     -webkit-transform-style: preserve-3d;
-  
+
     transform-style: preserve-3d;
 
     font-size: 18px;
 }
-  
+
 #buttonText:before {
     position: absolute;
     top: 0;
     left: 0;
-  
+
     width: 5px;
     height: 100%;
-  
+
     content: '';
     -webkit-transition: all .3s;
     transition: all .3s;
-  
+
     background: #7bf500;
 }
-  
+
 #buttonText:hover {
     color: #fff;
     background: #7bf500;
 }
-  
+
 #buttonText:hover:before {
     background: #fff;
 }
-  
 
-/*「ここにファイルをドラッグ＆ドロップ」というテキストの装飾*/
+
+/*「ファイルをここに」というテキストの装飾*/
 #dragDropAreaText1 {
     position: absolute;
-    top: 18vh;
+    top: 150px;
+    left: 50%;
+    text-align: center;
+    font-size: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transform: translate(-50%);
+    z-index: 0;
+}
+
+/*「ドラッグ＆ドロップ」というテキストの装飾*/
+#dragDropAreaText2 {
+    position: absolute;
+    top: 180px;
     left: 50%;
     text-align: center;
     font-size: 20px;
@@ -106,9 +121,9 @@
 }
 
 /*「または」というテキストの装飾*/
-#dragDropAreaText2 {
+#dragDropAreaText3 {
     position: absolute;
-    top: 28vh;
+    top: 250px;
     left: 50%;
     text-align: center;
     font-size: 20px;
@@ -116,4 +131,78 @@
     padding-bottom: 5px;
     transform: translate(-50%);
     z-index: 0;
+}
+
+
+/* スマートフォン向けのスタイル */
+@media screen and (max-width: 600px) {
+
+    /* ドラッグ＆ドロップエリア */
+    #dragDropArea {
+        padding: 100px 20px;
+        /* 上下左右の余白を調整 */
+    }
+
+    /* タイトルのエリア */
+    #titleTextArea {
+        width: 100%;
+        /* 幅を100%に */
+        padding: 10px;
+        /* 上下左右の余白を調整 */
+    }
+
+    /* プレビュー画像を表示するエリア */
+    #previewArea {
+        width: 90%;
+        /* 幅を90%に */
+        margin: 20px auto;
+        /* 上下中央に配置 */
+    }
+
+    /* 「パズルスタート」ボタン */
+    #buttonText {
+        width: 90%;
+        /* 幅を90%に */
+        height: 50px;
+        /* 高さを調整 */
+        font-size: 16px;
+        /* フォントサイズを調整 */
+    }
+
+    /* ドラッグ＆ドロップエリアのテキスト */
+    #dragDropAreaText1,
+    #dragDropAreaText2,
+    #dragDropAreaText3 {
+        font-size: 16px;
+        /* フォントサイズを調整 */
+    }
+
+
+    #dragDropAreaText1,
+    #dragDropAreaText2,
+    #dragDropAreaText3 {
+        position: absolute;
+        /* 絶対位置指定を追加 */
+        left: 50%;
+        /* 横方向中央に配置 */
+        transform: translateX(-50%);
+        /* 横方向中央に配置 */
+    }
+
+    #dragDropAreaText1 {
+        top: 130px;
+        /* 上から50%の位置に配置 */
+        transform: translateY(-50%) translateX(-50%);
+        /* 上から50%、横方向中央に配置 */
+    }
+
+    #dragDropAreaText2 {
+        top: 140px;
+        /* 上から50% + 30pxの位置に配置 */
+    }
+
+    #dragDropAreaText3 {
+        top: 180px;
+        /* 上から50% + 30pxの位置に配置 */
+    }
 }

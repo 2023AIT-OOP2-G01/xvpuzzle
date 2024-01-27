@@ -28,11 +28,14 @@
         </div>
         <!--水野
         ドラッグ＆ドロップ用のエリアを廃止し、inputだけでドラッグ＆ドロップとボタンの２タイプでのファイル選択ができるように変更しました。-->
+
         <div id="fileInputArea">
+
             <input type="file" id="dragDropArea" name="file" onchange="handleFileSelect(event)"
                 ondragenter="handleDragEnter()" ondragleave="handleDragLeave()">
-            <p id="dragDropAreaText1">ファイルをここにドラッグ＆ドロップ</p>
-            <p id="dragDropAreaText2">または</p>
+            <p id="dragDropAreaText1">ファイルをここに</p>
+            <p id="dragDropAreaText2">ドラッグ＆ドロップ</p>
+            <p id="dragDropAreaText3">または</p>
         </div>
 
 
