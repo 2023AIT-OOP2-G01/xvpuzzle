@@ -8,6 +8,28 @@ xvpuzzle
 自分の好きな画像を入力することで遊べる4x4のパズルゲーム
 
 
+## 自分の環境で実行する場合
+### 初期設定
+\$ git clone https://github.com/2023AIT-OOP2-G01/xvpuzzle.git<br>
+\$ cd xvpuzzle<br>
+\$ python -m venv .env<br>
+\$ source .env/bin/activate<br>
+(.env) $ pip install -r requirements.txt<br>
+
+### 必要なバージョン
+Python version : 3.11.5 or higher<br>
+Gunicorn (web　デプロイ時)<br>
+Flask==3.0.0<br>
+Pillow==10.1.0<br>
+
+### 起動方法
+image_upload.pyを実行後、 Running on URL が表示される<br>
+ブラウザを開き URLにアクセス
+
+\$ source .env/bin/activate<br>
+(.env) $ python image_upload.py<br>
+
+
 ## 実行方法
 
 以下のページで画像ファイルを読み込んだ後にパズルスタートボタンを押すとゲームが始まります
